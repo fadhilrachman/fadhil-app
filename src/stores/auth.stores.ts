@@ -8,6 +8,7 @@ import fetcher from "@/lib/fetcher";
 import toast from "react-hot-toast";
 // import { toast } from "sonner";
 import { create } from "zustand";
+import Cookies from "js-cookie";
 
 type ConfettiStore = {
   isLoading: boolean;
@@ -28,11 +29,18 @@ export const useAuth = create<ConfettiStore>((set) => ({
     set({ isLoading: true });
     try {
       const result = await fetcher.post("/users/sign-in", body);
+      // toast.success("Sign Up Success");
+      console.log({ result });
+      set({ isLoading: false });
+      Cookies.set("token", result.data.acces_token);
 
       //   toast({ title: "Login Berhasil" });
       return Promise.resolve(result);
-    } catch (error) {
-      console.log({ error });
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Sign Up Error");
+
+      set({ isLoading: false });
+      return Promise.reject(error);
     }
   },
   postSignUp: async (body): Promise<any> => {

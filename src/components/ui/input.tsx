@@ -23,15 +23,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           className={cn(
             `flex ${
-              StartIcon ? "pl-8" : "pl-3"
-            } h-9 w-full border !border-gray-100 rounded-md  bg-white    py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300`,
+              StartIcon ? "pl-8" : "pl-4"
+            } h-10 w-full border  rounded-md  bg-white    py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-800 dark:placeholder:text-neutral-400 dark:focus-visible:ring-neutral-300`,
             className
           )}
           ref={ref}
           {...props}
         />
         {EndIcon && (
-          <EndIcon className="h-4 absolute right-1.5 top-1/2 transform -translate-y-1/2" />
+          <EndIcon className="h-4 absolute right-2 top-1/2 transform -translate-y-1/2" />
         )}
       </div>
     );

@@ -26,15 +26,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/mail",
     },
     {
-      name: "Expense",
-      href: "/expense",
+      name: "Manage Keuangan",
+      href: "/financial/expense",
       code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/dashboard",
     },
-    {
-      name: "Income",
-      href: "/income",
-      code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/cards",
-    },
+
     {
       name: "Inventory",
       href: "/inventory",
@@ -54,7 +50,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="px-6 space-y-5">
-      <div className=" pt-5  flex items-center border-b  justify-between">
+      <div className=" pt-5 flex items-center border-b  justify-between">
         <div className="">
           <Tittle>Subtitle</Tittle>
           {/* {children} */}
@@ -66,9 +62,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   href={example.href}
                   key={example.href}
                   className={cn(
-                    "flex h-9  items-center justify-center  px-4 text-center text-sm transition-colors hover:text-primary",
+                    "flex h-9  items-center justify-center hover:bg-neutral-100  transition-all duration-300 ease-in-out  px-4 text-center text-sm  hover:text-primary",
                     pathname == example.href
-                      ? "border-b text-base  border-base font-semibold "
+                      ? "border-b text-base  border-base  "
                       : "text-muted-foreground"
                   )}
                 >
@@ -118,7 +114,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
-      <div>{children}</div>
+      <div className="text-[15px]">{children}</div>
     </div>
   );
 };

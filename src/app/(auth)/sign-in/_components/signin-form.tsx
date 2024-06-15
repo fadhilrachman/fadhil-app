@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import { Button } from "../../../../components/ui/button";
-import { FormControl, FormLabel } from "../../../../components/ui/form";
-import { Input } from "../../../../components/ui/input";
 import { Label } from "../../../../components/ui/label";
 import { Switch } from "../../../../components/ui/switch";
 import Link from "next/link";
@@ -13,6 +11,8 @@ import FormGenerator, {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/stores/auth.stores";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().min(1, "Field Required").email(),
@@ -20,6 +20,9 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+  const router = useRouter();
+  const { isLoading, postSignIn } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,6 +30,11 @@ const LoginForm = () => {
       password: "",
     },
   });
+  const handleSignUp = (val: z.infer<typeof formSchema>) => {
+    postSignIn(val).then(() => {
+      router.push(`/dashboard`);
+    });
+  };
 
   const dataForm: FormDataType[] = [
     {
@@ -44,29 +52,17 @@ const LoginForm = () => {
   ];
 
   return (
-    <div className=" space-y-10">
-      <Tittle>Sign In</Tittle>
-      <div className="space-y-4 opaco flex flex-col">
-        <Button className="">Sign in with Google</Button>
-        <Button className="">Sign in with Facebook</Button>
-      </div>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">Or</span>
-        </div>
-      </div>
+    <div className=" space-y-5">
+      <Tittle subtitle="Pantau Pengeluaran dan Pemasukan Anda dengan Login ke Aplikasi">
+        Selamat Datang
+      </Tittle>
       <div className=" ">
         <div className="space-y-4">
-          <FormGenerator
+          <FormGenerator<z.infer<typeof formSchema>>
             id="form"
             form={form}
             data={dataForm}
-            onSubmit={(val) => {
-              console.log({ val });
-            }}
+            onSubmit={handleSignUp}
           />
 
           <div className=" text-sm flex justify-between items-center">
@@ -75,22 +71,37 @@ const LoginForm = () => {
               <Label htmlFor="airplane-mode">Remember Me</Label>
             </div>
             <Link href={"/forgot-password"}>
-              <span className="text-base text-sm">Forgot Password?</span>
+              <span className=" text-sm font-semibold">Lupa password?</span>
             </Link>
           </div>
         </div>
-        <Button
-          className="mt-5 w-full "
-          variant={"main"}
-          type="submit"
-          form="form"
-        >
-          Sign In
-        </Button>
+        <div className="mt-5 space-y-3">
+          <Button
+            className=" w-full "
+            variant={"main"}
+            isLoading={isLoading}
+            type="submit"
+            form="form"
+          >
+            Masuk
+          </Button>
+          <p className="text-sm text-neutral-500 text-center">-Or-</p>
+          <Button
+            className=" w-full "
+            variant={"default"}
+            // isLoading
+            type="submit"
+            form="form"
+          >
+            Masuk Dengan Google
+          </Button>
+        </div>
         <div className="text-sm mt-2 text-gray-700">
-          Don't have an account?{" "}
+          Tidak punya akun?
           <Link href={"/sign-up"}>
-            <span className="text-base text-sm underline">Sign Up</span>
+            <span className="ml-1 text-sm font-semibold text-black underline">
+              Daftar
+            </span>
           </Link>
         </div>
       </div>

@@ -8,7 +8,7 @@ const page = () => {
   const params = useSearchParams();
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-10">
       <Tittle withButtonBack>Verify Otp</Tittle>
       <div>
         <p>

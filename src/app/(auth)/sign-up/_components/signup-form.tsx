@@ -33,7 +33,7 @@ const SignUpForm = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const handleSignUp = (val: any) => {
+  const handleSignUp = (val: z.infer<typeof formSchema>) => {
     // IF SIGN UP SUCCES NAVIGATE TO VERIFY OTP
     postSignUp(val).then(() => {
       router.push(`/verify-otp?email=${val.email}`);
@@ -43,7 +43,7 @@ const SignUpForm = () => {
   const dataForm: FormDataType[] = [
     {
       id: "user_name",
-      label: "User Name",
+      label: "Username",
       type: "text",
       placeholder: "user name",
     },
@@ -67,18 +67,17 @@ const SignUpForm = () => {
     },
   ];
   return (
-    <div className=" space-y-10">
-      <Tittle>Sign Up</Tittle>
+    <div className=" space-y-5">
+      <Tittle subtitle="Pantau Pengeluaran dan Pemasukan Anda dengan Daftar ke Aplikasi">
+        Selamat Datang
+      </Tittle>
 
       <div className=" ">
-        <FormGenerator
+        <FormGenerator<z.infer<typeof formSchema>>
           form={form}
           id="form"
           data={dataForm}
-          onSubmit={(val) => {
-            // console.log({ val });
-            handleSignUp(val);
-          }}
+          onSubmit={handleSignUp}
         />
 
         <Button
@@ -88,12 +87,14 @@ const SignUpForm = () => {
           isLoading={isLoading}
           variant={"main"}
         >
-          Sign Up
+          Daftar
         </Button>
         <div className="text-sm mt-2 text-gray-700">
           Belum Punya Akun?
-          <Link href={"/signin"}>
-            <span className="text-base text-sm underline">Sign In</span>
+          <Link href={"/sign-in"}>
+            <span className="font-semibold text-black text-sm underline">
+              Masuk
+            </span>
           </Link>
         </div>
         {/* </FormControl> */}

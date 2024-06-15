@@ -46,6 +46,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Search } from "lucide-react";
+import dynamic from "next/dynamic";
+// import FormExpense from "./_components/form.expense";
+const FormExpense = dynamic(() => import("./_components/form.expense"));
 
 const data: Payment[] = [
   {
@@ -177,7 +181,17 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
+interface DialogType {
+  create: boolean;
+  update: boolean;
+  delete: boolean;
+}
 export default function DataTableDemo() {
+  const [dialog, setDialog] = React.useState<DialogType>({
+    create: false,
+    update: false,
+    delete: false,
+  });
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -208,42 +222,26 @@ export default function DataTableDemo() {
   return (
     <div className="flex space-x-5">
       <div className="w-full">
-        <div className="flex items-center py-4">
+        <div className="flex  justify-between items-center py-4">
           <Input
             placeholder="Filter emails..."
             value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            StartIcon={Search}
             onChange={(event) =>
               table.getColumn("email")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button
+            variant={"main"}
+            onClick={() => {
+              setDialog((p) => ({ ...p, create: true }));
+            }}
+          >
+            Tambah
+          </Button>
         </div>
+
         <div className="rounded-md border">
           <Table>
             <TableHeader>
@@ -337,6 +335,16 @@ export default function DataTableDemo() {
           <CardContent>tto</CardContent>
         </Card>
       </div>
+
+      {/* //////////////////////////// DIALOG  //////////////////////////////*/}
+      {dialog.create && (
+        <FormExpense
+          open={dialog.create}
+          onOpen={() => {
+            setDialog((p) => ({ ...p, create: false }));
+          }}
+        />
+      )}
     </div>
   );
 }

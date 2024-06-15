@@ -1,6 +1,6 @@
 interface PostSignInType {
   email: string;
-  passwords: string;
+  password: string;
 }
 
 interface PostSignUpType {

@@ -19,8 +19,9 @@ const config = {
     },
     extend: {
       colors: {
-        base: "#095F59",
+        base: "#0A0A0A",
         secondary: "#FDCF6E",
+        third: "#E6FEED",
       },
       keyframes: {
         "accordion-down": {
