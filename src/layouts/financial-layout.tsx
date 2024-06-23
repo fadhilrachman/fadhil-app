@@ -22,10 +22,10 @@ const FinancialLayout = (props: { children: React.ReactNode }) => {
       icon: MdSavings,
     },
   ];
-
+  // grid grid-cols-10
   return (
-    <div className="grid grid-cols-10 gap-x-4">
-      <div className="border  space-y-3 col-span-2 rounded-md py-5 px-2">
+    <div className="px-20 gap-x-4">
+      {/* <div className="border  space-y-3 col-span-2 rounded-md py-5 px-2">
         {listSidebar.map((val) => {
           return (
             <div
@@ -37,7 +37,7 @@ const FinancialLayout = (props: { children: React.ReactNode }) => {
             </div>
           );
         })}
-      </div>
+      </div> */}
       {/* <Divider/> */}
       <div className="col-span-8">{props.children}</div>
     </div>

@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 const layout = ({ children }: { children: React.ReactNode }) => {
   const cookieStore = cookies();
   const token = cookieStore.get("token")?.value;
-  if (!token) {
-    redirect("/sign-in");
-  }
+  // if (!token) {
+  //   redirect("/sign-in");
+  // }
   return <DashboardLayout>{children}</DashboardLayout>;
 };
 

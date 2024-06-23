@@ -32,18 +32,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     },
 
     {
-      name: "Inventory",
+      name: "Schedule",
       href: "/inventory",
       code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/tasks",
     },
     {
-      name: "Schedule",
+      name: "Todo List",
       href: "/schedule",
-      code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/playground",
-    },
-    {
-      name: "Article",
-      href: "/article",
       code: "https://github.com/shadcn/ui/tree/main/apps/www/app/examples/playground",
     },
   ];
@@ -62,9 +57,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                   href={example.href}
                   key={example.href}
                   className={cn(
-                    "flex h-9  items-center justify-center hover:bg-neutral-100  transition-all duration-300 ease-in-out  px-4 text-center text-sm  hover:text-primary",
+                    "flex h-9  items-center justify-center hover:bg-neutral-200  transition-all duration-300 ease-in-out  px-4 text-center text-sm  hover:text-primary",
                     pathname == example.href
-                      ? "border-b text-base  border-base  "
+                      ? "border-b   border-base  "
                       : "text-muted-foreground"
                   )}
                 >
@@ -75,12 +70,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className=" flex items-center space-x-8">
-          <Input
+          {/* <Input
             placeholder="Search"
             className="h-[45px]"
             size={40}
             StartIcon={Search}
-          />
+          /> */}
           <div className="relative">
             <Bell className="h-6" />
             <div className="text-white bg-red-500 text-xs w-4 h-4 absolute -top-2 -right-1 rounded-full flex items-center justify-center">
